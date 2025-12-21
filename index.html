@@ -16,27 +16,12 @@
   <!-- Контейнер сайта -->
   <div class="container">
 
-    <!-- Кнопка управления музыкой -->
-    <button id="musicBtn">▶️ Включить музыку</button>
-    <audio id="bgMusic" loop>
-      <source src="https://image2url.com/audio/1766351652811-191ad6ec-6d14-4a6b-a61b-24e2a8b7e6c2.mp3" type="audio/mpeg">
-    </audio>
-
     <!-- About -->
     <section class="block">
       <h2>About</h2>
       <p>Genius, The billionaire, Playboy</p>
     </section>
-
-    <!-- Now Listening -->
-    <section class="block">
-      <h2>Now Listening</h2>
-      <div class="listening">
-        <div class="cover"></div>
-        <span>Not listening anything right now.</span>
-      </div>
-    </section>
-
+    
     <!-- Links -->
     <section class="block">
       <h2>Links</h2>
@@ -52,22 +37,7 @@
 
   <!-- Скрипты -->
   <script>
-    // Музыка включение/выключение
-    const musicBtn = document.getElementById('musicBtn');
-    const bgMusic = document.getElementById('bgMusic');
-    let isPlaying = false;
-
-    musicBtn.addEventListener('click', () => {
-      if (!isPlaying) {
-        bgMusic.play();
-        musicBtn.textContent = '⏸️ Выключить музыку';
-      } else {
-        bgMusic.pause();
-        musicBtn.textContent = '▶️ Включить музыку';
-      }
-      isPlaying = !isPlaying;
-    });
-
+    
     // Анимация фона
     const canvas = document.getElementById('bgCanvas');
     const ctx = canvas.getContext('2d');
