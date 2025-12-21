@@ -16,6 +16,12 @@
   <!-- Контейнер сайта -->
   <div class="container">
 
+    <!-- Кнопка управления музыкой -->
+    <button id="musicBtn"> Выключить музыку</button>
+    <audio id="bgMusic" loop autoplay>
+      <source src="https://image2url.com/audio/1766351652811-191ad6ec-6d14-4a6b-a61b-24e2a8b7e6c2.mp3" type="audio/mpeg">
+    </audio>
+
     <!-- About -->
     <section class="block">
       <h2>About</h2>
@@ -23,21 +29,36 @@
     </section>
     
     <!-- Links -->
-<section class="block">
-  <h2>Links</h2>
-  <ul class="links">
-    <li>Tiktok: <a href="https://www.tiktok.com/@shitskype" target="_blank">@shitskype</a></li>
-    <li>Telegram: <a href="https://t.me/datagrave" target="_blank">@datagrave</a></li>
-    <li>Telegram2: <a href="https://t.me/usiskype" target="_blank">@usiskype</a></li>
-    <li>Email: <a href="mailto:veyst228@gmail.com">veyst228@gmail.com</a></li>
-  </ul>
-</section>
+    <section class="block">
+      <h2>Links</h2>
+      <ul class="links">
+        <li>Tiktok: <a href="https://www.tiktok.com/@shitskype" target="_blank">@shitskype</a></li>
+        <li>Telegram: <a href="https://t.me/datagrave" target="_blank">@datagrave</a></li>
+        <li>Telegram2: <a href="https://t.me/usiskype" target="_blank">@usiskype</a></li>
+        <li>Email: <a href="mailto:veyst228@gmail.com">veyst228@gmail.com</a></li>
+      </ul>
+    </section>
 
   </div>
 
   <!-- Скрипты -->
   <script>
-    
+    // Музыка Play/Pause
+    const musicBtn = document.getElementById('musicBtn');
+    const bgMusic = document.getElementById('bgMusic');
+    let isPlaying = true;
+
+    musicBtn.addEventListener('click', () => {
+      if(isPlaying){
+        bgMusic.pause();
+        musicBtn.textContent = '🔊 Включить музыку';
+      } else {
+        bgMusic.play();
+        musicBtn.textContent = '🔊 Выключить музыку';
+      }
+      isPlaying = !isPlaying;
+    });
+
     // Анимация фона
     const canvas = document.getElementById('bgCanvas');
     const ctx = canvas.getContext('2d');
@@ -69,7 +90,6 @@
         p.x += p.dx;
         p.y += p.dy;
 
-        // Ограничение по краям
         if(p.x<0 || p.x>canvas.width) p.dx *= -1;
         if(p.y<0 || p.y>canvas.height) p.dy *= -1;
 
