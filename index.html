@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SNFSX</title>
+
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- Фоновый canvas для анимации -->
+  <canvas id="bgCanvas"></canvas>
+
+  <!-- Контейнер сайта -->
+  <div class="container">
+
+    <!-- Кнопка управления музыкой -->
+    <button id="musicBtn">▶️ Включить музыку</button>
+    <audio id="bgMusic" loop>
+      <source src="music.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- About -->
+    <section class="block">
+      <h2>About</h2>
+      <p>Genius, The billionaire, Playboy</p>
+    </section>
+
+    <!-- Now Listening -->
+    <section class="block">
+      <h2>Now Listening</h2>
+      <div class="listening">
+        <div class="cover"></div>
+        <span>Not listening anything right now.</span>
+      </div>
+    </section>
+
+    <!-- Links -->
+    <section class="block">
+      <h2>Links</h2>
+      <ul class="links">
+        <li>Tiktok: <a href="tiktok.com/@shitskype" target=_blank">@shytskype</a></li>
+        <li>Telegram: <a href="t.me/datagrave" target="_blank">@datagrave</a></li>
+        <li>Telegram2: <a href="t.me/usiskype" target="_blank">@usiskupe</a></li>
+        <li>Email: <a href="mailto:"veyst228@gmail.com">veyst228@gmail.com</a></li>
+      </ul>
+    </section>
+
+  </div>
+
+  <!-- Скрипты -->
+  <script>
+    // Музыка включение/выключение
+    const musicBtn = document.getElementById('musicBtn');
+    const bgMusic = document.getElementById('bgMusic');
+    let isPlaying = false;
+
+    musicBtn.addEventListener('click', () => {
+      if (!isPlaying) {
+        bgMusic.play();
+        musicBtn.textContent = '⏸️ Выключить музыку';
+      } else {
+        bgMusic.pause();
+        musicBtn.textContent = '▶️ Включить музыку';
+      }
+      isPlaying = !isPlaying;
+    });
+
+    // Анимация фона
+    const canvas = document.getElementById('bgCanvas');
+    const ctx = canvas.getContext('2d');
+    let particles = [];
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    // Создание частиц
+    for(let i=0; i<80; i++){
+      particles.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        r: Math.random() * 2 + 1,
+        dx: (Math.random()-0.5)*0.5,
+        dy: (Math.random()-0.5)*0.5
+      });
+    }
+
+    function animate() {
+      ctx.clearRect(0,0,canvas.width,canvas.height);
+      for(let i=0; i<particles.length; i++){
+        let p = particles[i];
+        p.x += p.dx;
+        p.y += p.dy;
+
+        // Ограничение по краям
+        if(p.x<0 || p.x>canvas.width) p.dx *= -1;
+        if(p.y<0 || p.y>canvas.height) p.dy *= -1;
+
+        ctx.beginPath();
+        ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+        ctx.fillStyle = 'rgba(47,218,193,0.6)';
+        ctx.fill();
+      }
+      requestAnimationFrame(animate);
+    }
+    animate();
+  </script>
+
+</body>
+</html>
