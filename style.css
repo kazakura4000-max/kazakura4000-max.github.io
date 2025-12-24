@@ -1,0 +1,194 @@
+/* ===== Reset ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* ===== Body ===== */
+body {
+    min-height: 100vh;
+    background: #050909;
+    font-family: 'Inter', 'Orbitron', sans-serif;
+    color: #a8e6da;
+    overflow: hidden;
+}
+
+/* ===== Scene ===== */
+.scene {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    background: radial-gradient(circle at top, #1a2a2a, #050909);
+}
+
+/* ===== Palm Background ===== */
+.palm {
+    position: absolute;
+    inset: 0;
+    background: url("palm.jpg") center / cover no-repeat;
+    filter: brightness(0.7) contrast(1.1) saturate(0.8);
+    transform-origin: bottom center;
+    animation: palmSway 10s ease-in-out infinite;
+}
+
+.palm::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: inherit;
+    filter: blur(2px);
+    opacity: 0.35;
+    animation: leavesWave 4s ease-in-out infinite;
+}
+
+/* ===== Rain Canvas ===== */
+#rain {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+}
+
+/* ===== Container ===== */
+.container {
+    position: relative;
+    z-index: 2;
+    max-width: 420px;
+    top: 50%;
+    transform: translateY(-50%);
+    margin: 0 auto;
+    padding: 28px 24px;
+    text-align: center;
+    border-radius: 18px;
+    backdrop-filter: blur(6px);
+    background: rgba(5, 15, 15, 0.55);
+    box-shadow:
+        0 0 60px rgba(0, 200, 180, 0.15),
+        inset 0 0 0 1px rgba(150, 255, 230, 0.08);
+}
+
+/* ===== Text ===== */
+.name {
+    font-size: 3rem;
+    letter-spacing: 3px;
+}
+
+.nickname {
+    font-size: 1.6rem;
+    color: #00d9ff;
+    margin-top: 6px;
+}
+
+.description {
+    margin-top: 12px;
+    color: #b7efe7;
+}
+
+/* ===== Links ===== */
+.links {
+    list-style: none;
+    margin-top: 32px;
+    padding: 0;
+}
+
+.links li {
+    display: grid;
+    grid-template-columns: 22px auto 1fr;
+    gap: 10px;
+    align-items: center;
+    margin-bottom: 14px;
+
+    font-size: 15px;
+    color: #9fded4;
+
+    opacity: 0;
+    transform: translateY(10px);
+    animation: linkAppear 1s ease forwards, windShake 6s ease-in-out infinite;
+    animation-delay: var(--delay), 1s;
+}
+
+.links i {
+    color: #2fdac1;
+    text-shadow: 0 0 8px rgba(120,255,230,0.6);
+}
+
+.links span {
+    opacity: 0.8;
+}
+
+.links a {
+    justify-self: end;
+    color: #7fffe9;
+    text-decoration: none;
+    position: relative;
+    font-weight: 500;
+}
+
+.links a::after {
+    content: "";
+    position: absolute;
+    left: -100%;
+    bottom: -2px;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #7fffe9, transparent);
+}
+
+.links a:hover::after {
+    animation: rainDrop 0.6s ease forwards;
+}
+
+.links a:hover {
+    text-shadow: 0 0 10px rgba(120,255,230,0.8);
+}
+
+/* ===== Link Drop ===== */
+.link-drop {
+    position: absolute;
+    right: 0;
+    top: -6px;
+    width: 4px;
+    height: 4px;
+    background: #7fffe9;
+    border-radius: 50%;
+    box-shadow: 0 0 6px rgba(120,255,230,0.8);
+    animation: dropFall 0.6s linear;
+}
+
+/* ===== Animations ===== */
+@keyframes palmSway {
+    0%,100% { transform: rotate(0deg) scale(1.02); }
+    50% { transform: rotate(0.4deg) scale(1.03); }
+}
+
+@keyframes leavesWave {
+    0%,100% { transform: translateX(0); }
+    50% { transform: translateX(8px); }
+}
+
+@keyframes linkAppear {
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes windShake {
+    0%,100% { transform: translateX(0); }
+    50% { transform: translateX(1.5px); }
+}
+
+@keyframes rainDrop {
+    from { left: -100%; }
+    to { left: 100%; }
+}
+
+@keyframes dropFall {
+    to { transform: translateY(18px); opacity: 0; }
+}
+
+/* ===== 4K ===== */
+@media (min-width: 2560px) {
+    .container {
+        max-width: 520px;
+        font-size: 1.15rem;
+    }
+}
